@@ -1,11 +1,18 @@
 const express = require("express");
-const dotenv = require("dotenv");
-dotenv.config();
+const bodyParser = require("body-parser");
 
-const app = express();
-const PORT = process.env.PORT;
+const serverConfig = require('./config/serverConfig');
 
-app.listen(PORT,() => {
-    console.log(`Hi the server has started on the PORT ${PORT}`);
-});
+
+function startServer (){
+    const app = express();
+    const { PORT } = serverConfig;
+
+    app.listen(PORT, () => {
+        console.log(`Hi the server has started on the PORT ${PORT}`);
+    });
+}
+
+startServer();
+
 
