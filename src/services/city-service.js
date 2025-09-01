@@ -3,7 +3,7 @@ const { cityRepository } = require("../repositories/index");
 const City = new cityRepository();
 
 class cityService {
-    async createCity(cityName) {
+    async createCity({cityName}) {
         try {
             const city = await City.createCity(cityName);
             return city;
@@ -12,10 +12,11 @@ class cityService {
             throw{error};
         }
     }
-
+    
     async deleteCity(cityId) {
         try {
-            await City.deleteCity(cityId);
+            const response = await City.deleteCity(cityId);
+            return response;
         } catch (error) {
             console.log("Somenthing went wrong at Service Layer");
             throw { error };
