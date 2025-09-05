@@ -1,10 +1,10 @@
-const City = require("../models/index");
+const {City} = require("../models/index");
 
 class cityRepository {
     
     async createCity(cityName) {
         try{
-            const newCity = await City.create({ cityName: cityName });
+            const newCity = await City.create({cityName : cityName});
             return newCity;
         }
         catch(error){
@@ -15,11 +15,12 @@ class cityRepository {
 
     async deleteCity(cityId){
         try{
-            await City.destroy({
+            const response = await City.destroy({
                 where :{
                     id : cityId
                 }
             });
+            return response;
         }
         catch(error){
             console.log("Error in city repository /n");
@@ -34,7 +35,7 @@ class cityRepository {
                     id : cityId
                 }
             });
-            return updatedCityity;
+            return updatedCity;
         }
         catch(error){
             console.log("Error in city repository /n");
@@ -42,9 +43,13 @@ class cityRepository {
         }
     }
 
-    async getCity(cityId) {
+    async getCity({cityName}) {
         try{
-            const city = await City.findByPk(cityId);
+            const city = await City.findOne({
+                where : {
+                    cityName : cityName
+                }
+            });
             return city;
         }
         catch(error){
